@@ -972,6 +972,7 @@ form label span {
         <form id="profileEditForm">
           <label><span>Geliş amacı</span><select id="editProfileInput"></select></label>
           <label id="profileDetailField"><span>Meslek veya eğitim alanı</span><select id="editDetailInput"></select></label>
+          <label><span>Konsolosluk ülkesi</span><select id="editConsularCountryInput"></select></label>
           <label><span>Yanında çocuk var mı?</span><select id="editHasChildrenInput"></select></label>
           <label id="profileChildrenField"><span>Çocuk sayısı</span><input id="editChildrenInput" type="number" min="1" max="10" /></label>
           <label><span>Şehir</span><select id="editCityInput"></select></label>
@@ -1425,6 +1426,69 @@ const masterResources = [
     priority: "high",
     emergency: false,
     ...source("official")
+  },
+  {
+    id: "germany-find-consulate",
+    city: "Almanya geneli",
+    scope: "germany",
+    category: "official",
+    subcategory: "Konsolosluk",
+    name: { tr: "Konsolosluğunu bul", de: "Zuständiges Konsulat finden", en: "Find your consulate" },
+    shortDescription: { tr: "Vatandaşlığına ve Almanya'daki adresine göre doğru büyükelçilik veya konsolosluğu resmî listeden bul.", de: "Finde die zuständige Botschaft oder das Konsulat nach Staatsangehörigkeit und Wohnort.", en: "Find the correct embassy or consulate for your nationality and German address." },
+    whatCanIDo: { tr: "Ayar bölümünde konsolosluk ülkeni seç; ardından ülkenin Almanya'daki temsilciliklerini resmî A-Z listesinden kontrol et.", de: "Wähle dein Konsularland in den Einstellungen und prüfe dann die amtliche A-Z-Liste.", en: "Choose your consular country in Settings, then check the official A-Z directory." },
+    howToApply: { tr: "Temsilciliğin görev bölgesini, randevu kuralını ve belge listesini kendi resmî sayfasından doğrula.", de: "Prüfe Amtsbezirk, Terminregeln und Unterlagen auf der offiziellen Seite der Vertretung.", en: "Verify jurisdiction, appointment rules and documents on the mission's official website." },
+    whenToUse: { tr: "Pasaport, kimlik, noterlik, doğum, evlilik, askerlik veya vatandaşlık işlemlerinde kullan.", de: "Für Pass, Ausweis, Notariat, Geburt, Ehe, Wehrdienst oder Staatsangehörigkeit.", en: "Use it for passport, ID, notarial, birth, marriage, military or citizenship matters." },
+    officialUrl: "https://www.auswaertiges-amt.de/de/reiseundsicherheit/diplomatische-vertretungen-in-deutschland-199678",
+    germanPhrases: ["Welches Konsulat ist für meinen Wohnort zuständig?", "Brauche ich für diesen Vorgang einen Termin?"],
+    userProfiles: ["student", "worker", "family", "parent", "recognition", "ausbildung", "integration"],
+    journeyStages: ["before", "week1", "month1", "later"],
+    intentKeywords: ["konsolosluk", "konsolos", "konsulat", "consulate", "botschaft", "pasaport", "kimlik", "vekalet", "askerlik", "dogum", "evlilik"],
+    priority: "medium",
+    emergency: false,
+    ...source("official", true, "2026-11-02")
+  },
+  {
+    id: "deggendorf-turkish-consulate",
+    city: "Deggendorf",
+    scope: "city",
+    category: "official",
+    subcategory: "T.C. Münih Başkonsolosluğu",
+    consularCountry: "TR",
+    name: { tr: "T.C. Münih Başkonsolosluğu", de: "Türkisches Generalkonsulat München", en: "Turkish Consulate General in Munich" },
+    shortDescription: { tr: "Deggendorf, Niederbayern'da olduğu için T.C. Münih Başkonsolosluğunun görev bölgesindedir.", de: "Deggendorf liegt in Niederbayern und damit im Amtsbezirk des Türkischen Generalkonsulats München.", en: "Deggendorf is in Lower Bavaria and within the jurisdiction of the Turkish Consulate General in Munich." },
+    whatCanIDo: { tr: "Pasaport, kimlik, noterlik, doğum, evlilik, askerlik ve vatandaşlık işlemlerinin güncel şartlarını resmî sayfadan kontrol et.", de: "Prüfe aktuelle Regeln für Pass, Ausweis, Notariat, Geburt, Ehe, Wehrdienst und Staatsangehörigkeit.", en: "Check current requirements for passport, ID, notarial, birth, marriage, military and citizenship services." },
+    howToApply: { tr: "Adres: Menzinger Str. 3, 80638 München. Çalışma saatleri hafta içi 09:00-12:00 ve 13:00-16:00; diğer işlemler randevu temellidir.", de: "Adresse: Menzinger Str. 3, 80638 München. Öffnungszeiten werktags 09:00-12:00 und 13:00-16:00; andere Vorgänge mit Termin.", en: "Address: Menzinger Str. 3, 80638 Munich. Weekday hours are 09:00-12:00 and 13:00-16:00; other services are appointment-based." },
+    whenToUse: { tr: "Konsolosluk acil hattı +49 163 227 94 90, 7/24 çağrı merkezi +49 30 568 373 099'dur. Bunlar 110 polis veya 112 sağlık/itfaiye acilinin yerine geçmez.", de: "Konsularischer Notdienst: +49 163 227 94 90; 24/7-Callcenter: +49 30 568 373 099. Dies ersetzt nicht Polizei 110 oder Rettung/Feuerwehr 112.", en: "Consular emergency: +49 163 227 94 90; 24/7 call centre: +49 30 568 373 099. These do not replace police 110 or medical/fire emergency 112." },
+    phone: "+49 89 17 80 31 0",
+    officialUrl: "https://munih-bk.mfa.gov.tr/Mission/Contact",
+    germanPhrases: ["Ich wohne in Deggendorf. Ist das Generalkonsulat München für mich zuständig?", "Welche Unterlagen brauche ich für diesen Vorgang?"],
+    userProfiles: ["student", "worker", "family", "parent", "recognition", "ausbildung", "integration"],
+    journeyStages: ["before", "week1", "month1", "later"],
+    intentKeywords: ["türk konsolosluğu", "turk konsoloslugu", "münih konsolosluk", "munih konsolosluk", "pasaport", "kimlik", "vekaletname", "askerlik", "doğum tescili", "evlilik tescili"],
+    priority: "high",
+    emergency: false,
+    ...source("official", true, "2026-11-02")
+  },
+  {
+    id: "turkey-consular-appointment",
+    city: "Almanya geneli",
+    scope: "germany",
+    category: "official",
+    subcategory: "Konsolosluk randevusu",
+    consularCountry: "TR",
+    name: { tr: "Konsolosluk randevusu al", de: "Konsulartermin vereinbaren", en: "Book a consular appointment" },
+    shortDescription: { tr: "T.C. konsolosluk işlemleri için yalnızca resmî randevu sistemini kullan.", de: "Nutze für türkische Konsularangelegenheiten nur das offizielle Terminsystem.", en: "Use only the official appointment system for Turkish consular services." },
+    whatCanIDo: { tr: "Konsolosluk.gov.tr üzerinden ülke olarak Almanya'yı, temsilcilik olarak Münih Başkonsolosluğunu ve işlem türünü seç.", de: "Wähle auf Konsolosluk.gov.tr Deutschland, das Generalkonsulat München und den Vorgang.", en: "On Konsolosluk.gov.tr choose Germany, the Munich Consulate General and the service type." },
+    howToApply: { tr: "Randevu öncesinde resmî bilgi notundaki güncel belgeleri ve teslim kurallarını kontrol et.", de: "Prüfe vor dem Termin die aktuelle Unterlagenliste und Abholregeln.", en: "Before the appointment, check the current document list and collection rules." },
+    whenToUse: { tr: "Başkonsolosluğun randevu gerektiren işlemleri için Münih'e gitmeden önce kullan.", de: "Vor der Fahrt nach München für terminpflichtige Vorgänge.", en: "Use it before travelling to Munich for services requiring an appointment." },
+    officialUrl: "https://www.konsolosluk.gov.tr/",
+    germanPhrases: ["Ich habe einen Termin beim Generalkonsulat.", "Wo kann ich meinen Termin prüfen?"],
+    userProfiles: ["student", "worker", "family", "parent", "recognition", "ausbildung", "integration"],
+    journeyStages: ["before", "week1", "month1", "later"],
+    intentKeywords: ["konsolosluk randevu", "randevu al", "pasaport randevu", "kimlik randevu", "noter randevu"],
+    priority: "high",
+    emergency: false,
+    ...source("official", true, "2026-11-02")
   },
   {
     id: "germany-health-insurance",
@@ -3797,6 +3861,7 @@ const defaultState = {
   profile: "",
   profileDetail: "",
   profileConfirmed: false,
+  consularCountry: "",
   hasChildren: false,
   childrenCount: 0,
   city: "Deggendorf",
@@ -3841,6 +3906,7 @@ function loadState() {
       journeyStage: typeof saved.journeyStage === "string" ? saved.journeyStage : "before",
       profileDetail: typeof saved.profileDetail === "string" ? saved.profileDetail : "",
       profileConfirmed: saved.profileConfirmed === true || Boolean(saved.onboarded && saved.profile && saved.profileDetail),
+      consularCountry: ["", "TR", "OTHER"].includes(saved.consularCountry) ? saved.consularCountry : "",
       hasChildren: typeof saved.hasChildren === "boolean" ? saved.hasChildren : Number(saved.childrenCount || 0) > 0,
       childrenCount: Number.isFinite(Number(saved.childrenCount)) ? Math.max(0, Math.min(10, Number(saved.childrenCount))) : 0,
       arrivalStatus: typeof saved.arrivalStatus === "string" ? saved.arrivalStatus : "",
@@ -3923,7 +3989,8 @@ const ui = {
     myList: "Benim listem", suggestions: "Önerilen adımlar", addToList: "Listeme ekle", remove: "Kaldır", done: "Tamamlandı", undo: "Geri al",
     noMyTasks: "Henüz kendi listene görev eklemedin.", noSuggestions: "Bu bölümde öneri yok.", categories: "Kategoriler",
     official: "Resmî İşlemler", homeLife: "Ev ve Günlük Yaşam", workMoney: "İş ve Para", health: "Sağlık", familyEdu: "Aile ve Eğitim", rightsSupport: "Haklar ve Destek", germanHelp: "Almanca Yardım",
-    profile: "Geliş amacı", detail: "Meslek veya eğitim alanı", hasChildren: "Yanında çocuk var mı?", children: "Çocuk sayısı", city: "Şehir", arrived: "Almanya’ya geldin mi?", arrival: "Geliş tarihi", german: "Almanca seviyesi", housing: "Kalacak yer", language: "Dil",
+    profile: "Geliş amacı", detail: "Meslek veya eğitim alanı", consularCountry: "Konsolosluk ülkesi", hasChildren: "Yanında çocuk var mı?", children: "Çocuk sayısı", city: "Şehir", arrived: "Almanya’ya geldin mi?", arrival: "Geliş tarihi", german: "Almanca seviyesi", housing: "Kalacak yer", language: "Dil",
+    countryUnknown: "Belirtilmedi", countryTurkey: "Türkiye", countryOther: "Diğer ülke",
     start: "Başla", chooseProfile: "Geliş amacını seç", chooseDetail: "Alanını seç", onboardingTitle: "Almanya’daki ilk dönemini sadeleştirelim.", onboardingText: "Geliş amacını ve alanını seç. Diğer bilgileri daha sonra Ayar bölümünden ekleyebilirsin.",
     search: "Arama", popularSearches: "Sık arananlar", noResults: "Sonuç bulunamadı.", steps: "Adımlar", documentsList: "Belgelerini ayrı ayrı hazırla", phrases: "Almanca cümleler", source: "Doğrulanmış kaynak", openOfficial: "Resmî sayfayı aç",
     cityAdded: "Seçtiğin şehir için mevcut kaynaklar sonuçlara otomatik eklenir.", profileStudent: "Üniversite için geliyorum", profileWorker: "Çalışmak için geliyorum", profileAusbildung: "Ausbildung için geliyorum", profileRecognition: "İş arama / diploma denkliği", profileFamily: "Aile birleşimiyle geliyorum", profileIntegration: "Göç / entegrasyon desteği", profileParent: "Öğrenci velisiyim",
@@ -3941,7 +4008,8 @@ const ui = {
     myList: "Meine Liste", suggestions: "Vorschläge", addToList: "Zur Liste", remove: "Entfernen", done: "Erledigt", undo: "Rückgängig",
     noMyTasks: "Du hast noch keine Aufgabe in deiner Liste.", noSuggestions: "Keine Vorschläge in diesem Bereich.", categories: "Kategorien",
     official: "Behörden", homeLife: "Wohnen & Alltag", workMoney: "Arbeit & Geld", health: "Gesundheit", familyEdu: "Familie & Bildung", rightsSupport: "Rechte & Hilfe", germanHelp: "Deutsch-Hilfe",
-    profile: "Zweck", detail: "Beruf oder Bildungsweg", hasChildren: "Kommen Kinder mit?", children: "Anzahl der Kinder", city: "Stadt", arrived: "Schon in Deutschland?", arrival: "Ankunftsdatum", german: "Deutschniveau", housing: "Unterkunft", language: "Sprache",
+    profile: "Zweck", detail: "Beruf oder Bildungsweg", consularCountry: "Konsularland", hasChildren: "Kommen Kinder mit?", children: "Anzahl der Kinder", city: "Stadt", arrived: "Schon in Deutschland?", arrival: "Ankunftsdatum", german: "Deutschniveau", housing: "Unterkunft", language: "Sprache",
+    countryUnknown: "Nicht angegeben", countryTurkey: "Türkei", countryOther: "Anderes Land",
     start: "Starten", chooseProfile: "Zweck auswählen", chooseDetail: "Bereich auswählen", onboardingTitle: "Machen wir deine erste Zeit in Deutschland einfacher.", onboardingText: "Wähle deinen Zweck und deinen Bereich. Weitere Angaben kannst du später unter Profil ergänzen.",
     search: "Suche", popularSearches: "Häufig gesucht", noResults: "Keine Ergebnisse.", steps: "Schritte", documentsList: "Dokumente einzeln vorbereiten", phrases: "Deutsche Sätze", source: "Geprüfte Quelle", openOfficial: "Offizielle Seite öffnen",
     cityAdded: "Quellen aus der gewählten Stadt werden automatisch ergänzt.", profileStudent: "Ich komme zum Studium", profileWorker: "Ich komme zum Arbeiten", profileAusbildung: "Ich komme für Ausbildung", profileRecognition: "Jobsuche / Anerkennung", profileFamily: "Ich komme zum Familiennachzug", profileIntegration: "Migration / Integration", profileParent: "Ich bin Elternteil eines Studierenden",
@@ -3959,7 +4027,8 @@ const ui = {
     myList: "My list", suggestions: "Suggested steps", addToList: "Add to list", remove: "Remove", done: "Done", undo: "Undo",
     noMyTasks: "You have not added tasks to your list yet.", noSuggestions: "No suggestions in this stage.", categories: "Categories",
     official: "Official tasks", homeLife: "Housing & Daily Life", workMoney: "Work & Money", health: "Health", familyEdu: "Family & Education", rightsSupport: "Rights & Support", germanHelp: "German Help",
-    profile: "Purpose", detail: "Profession or education path", hasChildren: "Are children coming with you?", children: "Number of children", city: "City", arrived: "Already in Germany?", arrival: "Arrival date", german: "German level", housing: "Housing", language: "Language",
+    profile: "Purpose", detail: "Profession or education path", consularCountry: "Consular country", hasChildren: "Are children coming with you?", children: "Number of children", city: "City", arrived: "Already in Germany?", arrival: "Arrival date", german: "German level", housing: "Housing", language: "Language",
+    countryUnknown: "Not specified", countryTurkey: "Türkiye", countryOther: "Other country",
     start: "Start", chooseProfile: "Choose your purpose", chooseDetail: "Choose your field", onboardingTitle: "Let’s simplify your first period in Germany.", onboardingText: "Choose your purpose and field. You can add the remaining details later in Settings.",
     search: "Search", popularSearches: "Popular searches", noResults: "No results.", steps: "Steps", documentsList: "Prepare each document separately", phrases: "German phrases", source: "Verified source", openOfficial: "Open official page",
     cityAdded: "Sources from the selected city are added automatically.", profileStudent: "I’m coming for university", profileWorker: "I’m coming for work", profileAusbildung: "I’m coming for vocational training", profileRecognition: "Job search / recognition", profileFamily: "I’m coming for family reunification", profileIntegration: "Migration / integration support", profileParent: "I am a student's parent",
@@ -3974,6 +4043,7 @@ const profiles = [["student", "profileStudent"], ["ausbildung", "profileAusbildu
 const arrivalOptions = [["before", "before"], ["arrived", "arrivedOpt"], ["settled", "settled"]];
 const housingOptions = [["ready", "ready"], ["searching", "searching"], ["temporary", "temporary"]];
 const childrenOptions = [["no", "no"], ["yes", "yes"]];
+const consularCountryOptions = [["", "countryUnknown"], ["TR", "countryTurkey"], ["OTHER", "countryOther"]];
 const germanLevels = ["A0-A1", "A2", "B1", "B2+"];
 const roadmapGroups = [["all", "allTasks"], ["documents", "documentsGroup"], ["applications", "applicationsGroup"], ["support", "supportGroup"]];
 const stages = [
@@ -4006,6 +4076,15 @@ const searchAliases = {
   çocuk: "schule kita kinderarzt kindergeld jugendamt familie",
   borc: "borç schulden mahnung inkasso schuldnerberatung caritas",
   borç: "schulden mahnung inkasso schuldnerberatung caritas",
+  konsolosluk: "konsolos consulate konsulat botschaft pasaport kimlik vekalet askerlik dogum evlilik randevu",
+  konsolos: "konsolosluk consulate konsulat botschaft",
+  pasaport: "konsolosluk reisepass passport kimlik randevu",
+  kimlik: "konsolosluk ausweis identitaet pasaport randevu",
+  vekalet: "konsolosluk noter vekaletname vollmacht notariat",
+  askerlik: "konsolosluk askerlik military randevu",
+  dogum: "doğum konsolosluk geburt tescil",
+  doğum: "konsolosluk geburt tescil",
+  evlilik: "konsolosluk heirat eheschliessung tescil",
   sim: "esim prepaid kontorlu kontörlü video ident reisepass aktivieren",
   anmeldung: "adres kaydi adres kaydı buergeramt bürgeramt wohnungsgeberbestätigung"
 };
@@ -4174,6 +4253,7 @@ function saveProfile(event) {
   const nextDetail = $("#editDetailInput").value;
   state.profile = nextProfile;
   state.profileDetail = nextDetail;
+  state.consularCountry = $("#editConsularCountryInput").value;
   state.profileConfirmed = true;
   state.hasChildren = $("#editHasChildrenInput").value === "yes";
   state.childrenCount = state.hasChildren ? Number($("#editChildrenInput").value || 1) : 0;
@@ -4216,6 +4296,7 @@ function addNote(event) {
 function fillSelects() {
   fill("#profileInput", [["", "chooseProfile"], ...profiles]);
   fill("#editProfileInput", profiles);
+  fill("#editConsularCountryInput", consularCountryOptions);
   fill("#arrivalStatusInput", arrivalOptions);
   fill("#editArrivalStatusInput", arrivalOptions);
   fill("#cityInput", cityList.map((city) => [city, city]));
@@ -4262,6 +4343,7 @@ function setFormValues() {
   const values = {
     profileInput: state.profileConfirmed ? (state.profile || "") : "",
     editProfileInput: state.profile || "student",
+    editConsularCountryInput: state.consularCountry || "",
     hasChildrenInput: state.hasChildren ? "yes" : "no",
     editHasChildrenInput: state.hasChildren ? "yes" : "no",
     childrenInput: state.childrenCount || 1,
@@ -4315,7 +4397,7 @@ function renderStaticLabels() {
   text("#installAppButton", state.lang === "de" ? "Installieren" : state.lang === "en" ? "Install" : "Kur");
   text("#profileSheetTitle", L("settings"));
   text('[data-action="close-profile"]', L("close"));
-  const profileLabels = ["profile", "detail", "hasChildren", "children", "city", "arrived", "arrival", "german", "housing"];
+  const profileLabels = ["profile", "detail", "consularCountry", "hasChildren", "children", "city", "arrived", "arrival", "german", "housing"];
   $$("#profileEditForm label span").forEach((node, index) => { node.textContent = L(profileLabels[index] || "profile"); });
   text("#profileEditForm .primary", L("save"));
   text("#view-roadmap .page-title .eyebrow", L("optional"));
@@ -4506,7 +4588,9 @@ function openNextStep() {
 }
 
 function guideItems() {
-  const cityResources = masterResources.filter((item) => item.scope !== "city" || item.city === state.city);
+  const cityResources = masterResources
+    .filter((item) => item.scope !== "city" || item.city === state.city)
+    .filter((item) => !item.consularCountry || !state.consularCountry || item.consularCountry === state.consularCountry);
   const resources = cityResources.map((item) => ({
     id: `resource:${item.id}`,
     kind: "resource",
@@ -4516,6 +4600,7 @@ function guideItems() {
     description: localize(item.shortDescription, state.lang),
     steps: [item.whatCanIDo, item.howToApply, item.whenToUse].map((value) => localize(value, state.lang)).filter(Boolean),
     phrases: item.germanPhrases || [],
+    keywords: item.intentKeywords || [],
     officialUrl: item.officialUrl || "",
     city: item.city,
     sourceKey: item.officialUrl || item.id
@@ -4570,10 +4655,10 @@ function runSearch(query, focusInput = true) {
 
 function renderQuickSearches() {
   const searches = state.lang === "de"
-    ? [["Wohnung", "wohnung"], ["Arzt", "arzt"], ["Arbeit", "arbeit"], ["Bus", "bus"], ["Anmeldung", "anmeldung"], ["SIM", "sim"]]
+    ? [["Wohnung", "wohnung"], ["Arzt", "arzt"], ["Arbeit", "arbeit"], ["Bus", "bus"], ["Konsulat", "konsolosluk"], ["Anmeldung", "anmeldung"], ["SIM", "sim"]]
     : state.lang === "en"
-      ? [["Housing", "housing"], ["Doctor", "doctor"], ["Work", "work"], ["Bus", "bus"], ["Anmeldung", "anmeldung"], ["SIM", "sim"]]
-      : [["Ev", "ev"], ["Doktor", "doktor"], ["İş", "iş"], ["Otobüs", "otobüs"], ["Anmeldung", "anmeldung"], ["SIM", "sim"]];
+      ? [["Housing", "housing"], ["Doctor", "doctor"], ["Work", "work"], ["Bus", "bus"], ["Consulate", "konsolosluk"], ["Anmeldung", "anmeldung"], ["SIM", "sim"]]
+      : [["Ev", "ev"], ["Doktor", "doktor"], ["İş", "iş"], ["Otobüs", "otobüs"], ["Konsolosluk", "konsolosluk"], ["Anmeldung", "anmeldung"], ["SIM", "sim"]];
   return `<section class="quick-searches"><h3>${L("popularSearches")}</h3><div>${searches.map(([label, query]) => `<button data-action="search-query" data-query="${escapeAttr(query)}" type="button">${escapeHtml(label)}</button>`).join("")}</div></section>`;
 }
 
@@ -4589,7 +4674,7 @@ function rankedSearch(query) {
 }
 
 function scoreItem(item, query, tokens) {
-  const haystack = normalizeText(`${item.title} ${item.description} ${item.type} ${item.category} ${(item.steps || []).join(" ")} ${(item.phrases || []).join(" ")}`);
+  const haystack = normalizeText(`${item.title} ${item.description} ${item.type} ${item.category} ${(item.steps || []).join(" ")} ${(item.phrases || []).join(" ")} ${(item.keywords || []).join(" ")}`);
   const words = new Set(haystack.split(" "));
   let score = 0;
   if (query.length > 2 && haystack.includes(query)) score += 25;

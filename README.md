@@ -18,6 +18,8 @@ Yeni Şehrim, Deggendorf'a gelen kişinin amacı ve durumuna göre doğru başla
 - Her profile eklenebilen bağımsız çocuk ve aile rotası
 - Evraklarım, Başvurularım, Haklarım ve Desteklerim ayrımı
 - Yapılacak, Devam ediyor ve Tamamlandı görev durumları
+- Profilde konsolosluk ülkesi seçimi ve ülkeye göre filtrelenen konsolosluk rehberi
+- Deggendorf için T.C. Münih Başkonsolosluğu görev bölgesi, randevu ve acil iletişim bilgileri
 
 ## Ana Bölümler
 
@@ -44,6 +46,7 @@ Yeni Şehrim, Deggendorf'a gelen kişinin amacı ve durumuna göre doğru başla
    - Aile ve Eğitim
    - Haklar ve Destek
    - Almanca Yardım
+   - Konsolosluk ve pasaport işlemleri
 
 ## Korunanlar
 
