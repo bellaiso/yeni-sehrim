@@ -1,6 +1,6 @@
-# Yeni Şehrim V3.0
+# Yeni Şehrim V3.1
 
-V3.0 birleşik profil sürümüdür. V2.9 ayrı klasörde ve ZIP olarak korunur.
+V3.1 kurulum, çevrimdışı kullanım ve kalıcı kişisel rota düzeltmelerini içeren Deggendorf pilot sürümüdür.
 
 ## Amaç
 
@@ -56,6 +56,9 @@ Yeni Şehrim, Deggendorf'a gelen kişinin amacı ve durumuna göre doğru başla
 - V2.8 kayıtlarını kaybetmeden yeni profil alanlarına geçiş
 - V2.9 kayıtlarını kaybetmeden birleşik profile geçiş
 - GitHub Pages uyumlu statik dosya yapısı
+- Ayarlardan değiştirilen geliş amacı ve meslek rotasının yenileme sonrasında korunması
+- Profil değiştiğinde önceki rotanın açık görev ve son bakılan kaydının temizlenmesi
+- Ana ekrana kurulabilen PWA ve temel çevrimdışı kullanım
 
 ## Bilinçli Olarak Eklenmeyenler
 
@@ -67,16 +70,8 @@ Yeni Şehrim, Deggendorf'a gelen kişinin amacı ve durumuna göre doğru başla
 
 ## Açma
 
-Telefonda veya bilgisayarda en kolay deneme dosyası:
-
-```text
-yeni-sehrim-tek-dosya.html
-```
-
-Geliştirme için:
+GitHub Pages veya yerel bir web sunucusunda:
 
 ```text
 index.html
 ```
-
-`index.html` modüler JavaScript kullandığı için yerel sunucuyla açılması önerilir.

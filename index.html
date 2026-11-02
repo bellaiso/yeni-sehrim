@@ -4,9 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#10233f" />
+  <meta name="description" content="Almanya'ya yeni gelenler için kişisel yol haritası ve Deggendorf yaşam rehberi." />
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Yeni Şehrim" />
-  <title>Yeni Şehrim V3.0</title>
+  <link rel="icon" href="./icons/icon-192.png" />
+  <title>Yeni Şehrim V3.1</title>
   <style>
 :root {
   --ink: #10233f;
@@ -104,11 +107,13 @@ select:focus-visible {
 }
 .header-tools {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: auto auto;
   justify-items: end;
   gap: 5px;
 }
-.profile-button {
+.lang { grid-column: 1 / -1; }
+.profile-button,
+.install-button {
   min-height: 30px;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -117,6 +122,11 @@ select:focus-visible {
   font-size: 12px;
   font-weight: 850;
   cursor: pointer;
+}
+.install-button {
+  border-color: var(--orange);
+  background: var(--orange);
+  color: white;
 }
 .lang {
   display: grid;
@@ -727,18 +737,39 @@ form label span {
   position: fixed;
   inset: 0;
   z-index: 70;
-  background: #fff8ec;
+  background: rgba(16, 35, 63, .36);
+  backdrop-filter: blur(8px);
   display: grid;
   place-items: center;
   padding: 18px;
 }
 .onboarding-card {
   width: min(100%, 430px);
+  max-height: calc(100vh - 36px);
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  box-shadow: 0 24px 64px rgba(16, 35, 63, .2);
+  padding: 22px;
 }
 .onboarding-card p {
   color: var(--muted);
   line-height: 1.45;
   margin: 8px 0 16px;
+}
+.onboarding-actions {
+  display: grid;
+  gap: 9px;
+}
+.secondary-button {
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  color: var(--ink);
+  font-weight: 850;
+  cursor: pointer;
 }
 .bottom-nav {
   position: fixed;
@@ -808,6 +839,7 @@ form label span {
         <span><b>Yeni Şehrim</b><small id="headerSubtitle">Deggendorf</small></span>
       </button>
       <div class="header-tools">
+        <button class="install-button" id="installAppButton" type="button" hidden>Kur</button>
         <button class="profile-button" data-action="open-profile" type="button">Ayar</button>
         <div class="lang" aria-label="Dil seçimi">
           <button data-lang="tr" type="button">TR</button>
@@ -820,19 +852,23 @@ form label span {
     <main>
       <section id="onboarding" class="onboarding" hidden>
         <div class="onboarding-card">
-          <span class="eyebrow">1/4</span>
+          <span class="eyebrow">Hızlı başlangıç</span>
           <h1>Almanya’daki ilk dönemini sadeleştirelim.</h1>
-          <p>Önce yalnızca temel bilgileri seç. Diğerlerini gerektiğinde düzenleyebilirsin.</p>
+          <p>Geliş amacını ve alanını seçerek kişisel planını oluştur. Diğer bilgileri daha sonra Ayar bölümünden ekleyebilirsin.</p>
           <form id="onboardingForm">
-            <label><span>Geliş amacı</span><select id="profileInput"></select></label>
-            <label id="onboardingDetailField"><span>Meslek veya eğitim alanı</span><select id="detailInput"></select></label>
+            <label><span id="onboardingProfileLabel">Geliş amacı</span><select id="profileInput" required></select></label>
+            <label id="onboardingDetailField"><span id="onboardingDetailLabel">Meslek veya eğitim alanı</span><select id="detailInput" required></select></label>
+            <label><span id="onboardingCityLabel">Şehir</span><select id="cityInput"></select></label>
+            <label><span id="onboardingLanguageLabel">Dil</span><select id="languageInput"><option value="tr">Türkçe</option><option value="de">Deutsch</option><option value="en">English</option></select></label>
+            <div class="onboarding-actions">
+              <button class="primary" id="onboardingNext" type="button">Planımı aç</button>
+            </div>
+          </form>
+          <div class="onboarding-hidden-fields" hidden aria-hidden="true">
             <label><span>Yanında çocuk var mı?</span><select id="hasChildrenInput"></select></label>
             <label id="onboardingChildrenField"><span>Çocuk sayısı</span><input id="childrenInput" type="number" min="1" max="10" value="1" /></label>
-            <label><span>Şehir</span><select id="cityInput"></select></label>
             <label><span>Almanya’ya geldin mi?</span><select id="arrivalStatusInput"></select></label>
-            <label><span>Dil</span><select id="languageInput"><option value="tr">Türkçe</option><option value="de">Deutsch</option><option value="en">English</option></select></label>
-            <button class="primary" id="onboardingNext" type="button">Başla</button>
-          </form>
+          </div>
         </div>
       </section>
 
@@ -850,7 +886,7 @@ form label span {
         <section class="start-guide" aria-labelledby="startGuideTitle">
           <div class="section-head start-guide-head">
             <div>
-              <span class="eyebrow">Yeni Şehrim V3.0 · Deggendorf pilotu</span>
+              <span class="eyebrow">Yeni Şehrim V3.1 · Deggendorf pilotu</span>
               <h1 id="startGuideTitle">Nereden başlamalıyım?</h1>
               <p id="startGuideText">Almanya’yı hiç bilmiyorsan buradan başla. Sana gereken konuyu seç; bilgileri adım adım gösterelim.</p>
             </div>
@@ -3760,6 +3796,7 @@ const defaultState = {
   pendingConfirmation: null,
   profile: "",
   profileDetail: "",
+  profileConfirmed: false,
   hasChildren: false,
   childrenCount: 0,
   city: "Deggendorf",
@@ -3803,6 +3840,7 @@ function loadState() {
       lastInteraction: typeof saved.lastInteraction === "string" ? saved.lastInteraction : "",
       journeyStage: typeof saved.journeyStage === "string" ? saved.journeyStage : "before",
       profileDetail: typeof saved.profileDetail === "string" ? saved.profileDetail : "",
+      profileConfirmed: saved.profileConfirmed === true || Boolean(saved.onboarded && saved.profile && saved.profileDetail),
       hasChildren: typeof saved.hasChildren === "boolean" ? saved.hasChildren : Number(saved.childrenCount || 0) > 0,
       childrenCount: Number.isFinite(Number(saved.childrenCount)) ? Math.max(0, Math.min(10, Number(saved.childrenCount))) : 0,
       arrivalStatus: typeof saved.arrivalStatus === "string" ? saved.arrivalStatus : "",
@@ -3844,13 +3882,23 @@ function loadState() {
 }
 
 function saveState(state) {
-  localStorage.setItem("ysState", JSON.stringify(state));
+  const persistedState = {
+    ...state,
+    profileConfirmed: Boolean(state.profileConfirmed || (state.onboarded && state.profile && state.profileDetail))
+  };
+  localStorage.setItem("ysState", JSON.stringify(persistedState));
   localStorage.setItem("ysLang", state.lang || "tr");
 }
 
 function toggleValue(list, value) {
   return list.includes(value) ? list.filter((item) => item !== value) : [...list, value];
 }
+
+
+
+
+
+
 
 
 
@@ -3876,7 +3924,7 @@ const ui = {
     noMyTasks: "Henüz kendi listene görev eklemedin.", noSuggestions: "Bu bölümde öneri yok.", categories: "Kategoriler",
     official: "Resmî İşlemler", homeLife: "Ev ve Günlük Yaşam", workMoney: "İş ve Para", health: "Sağlık", familyEdu: "Aile ve Eğitim", rightsSupport: "Haklar ve Destek", germanHelp: "Almanca Yardım",
     profile: "Geliş amacı", detail: "Meslek veya eğitim alanı", hasChildren: "Yanında çocuk var mı?", children: "Çocuk sayısı", city: "Şehir", arrived: "Almanya’ya geldin mi?", arrival: "Geliş tarihi", german: "Almanca seviyesi", housing: "Kalacak yer", language: "Dil",
-    start: "Başla", onboardingTitle: "Almanya’daki ilk dönemini sadeleştirelim.", onboardingText: "Önce yalnızca temel bilgileri seç. Diğerlerini gerektiğinde düzenleyebilirsin.",
+    start: "Başla", chooseProfile: "Geliş amacını seç", chooseDetail: "Alanını seç", onboardingTitle: "Almanya’daki ilk dönemini sadeleştirelim.", onboardingText: "Geliş amacını ve alanını seç. Diğer bilgileri daha sonra Ayar bölümünden ekleyebilirsin.",
     search: "Arama", popularSearches: "Sık arananlar", noResults: "Sonuç bulunamadı.", steps: "Adımlar", documentsList: "Belgelerini ayrı ayrı hazırla", phrases: "Almanca cümleler", source: "Doğrulanmış kaynak", openOfficial: "Resmî sayfayı aç",
     cityAdded: "Seçtiğin şehir için mevcut kaynaklar sonuçlara otomatik eklenir.", profileStudent: "Üniversite için geliyorum", profileWorker: "Çalışmak için geliyorum", profileAusbildung: "Ausbildung için geliyorum", profileRecognition: "İş arama / diploma denkliği", profileFamily: "Aile birleşimiyle geliyorum", profileIntegration: "Göç / entegrasyon desteği", profileParent: "Öğrenci velisiyim",
     before: "Henüz Almanya’ya gelmedim", arrivedOpt: "Yeni geldim", settled: "Bir süredir Almanya’dayım", ready: "Hazır", searching: "Arıyorum", temporary: "Geçici konaklama", noNotes: "Henüz not eklemedin.",
@@ -3894,7 +3942,7 @@ const ui = {
     noMyTasks: "Du hast noch keine Aufgabe in deiner Liste.", noSuggestions: "Keine Vorschläge in diesem Bereich.", categories: "Kategorien",
     official: "Behörden", homeLife: "Wohnen & Alltag", workMoney: "Arbeit & Geld", health: "Gesundheit", familyEdu: "Familie & Bildung", rightsSupport: "Rechte & Hilfe", germanHelp: "Deutsch-Hilfe",
     profile: "Zweck", detail: "Beruf oder Bildungsweg", hasChildren: "Kommen Kinder mit?", children: "Anzahl der Kinder", city: "Stadt", arrived: "Schon in Deutschland?", arrival: "Ankunftsdatum", german: "Deutschniveau", housing: "Unterkunft", language: "Sprache",
-    start: "Starten", onboardingTitle: "Machen wir deine erste Zeit in Deutschland einfacher.", onboardingText: "Wähle zuerst nur die Basisdaten. Alles andere kannst du später ändern.",
+    start: "Starten", chooseProfile: "Zweck auswählen", chooseDetail: "Bereich auswählen", onboardingTitle: "Machen wir deine erste Zeit in Deutschland einfacher.", onboardingText: "Wähle deinen Zweck und deinen Bereich. Weitere Angaben kannst du später unter Profil ergänzen.",
     search: "Suche", popularSearches: "Häufig gesucht", noResults: "Keine Ergebnisse.", steps: "Schritte", documentsList: "Dokumente einzeln vorbereiten", phrases: "Deutsche Sätze", source: "Geprüfte Quelle", openOfficial: "Offizielle Seite öffnen",
     cityAdded: "Quellen aus der gewählten Stadt werden automatisch ergänzt.", profileStudent: "Ich komme zum Studium", profileWorker: "Ich komme zum Arbeiten", profileAusbildung: "Ich komme für Ausbildung", profileRecognition: "Jobsuche / Anerkennung", profileFamily: "Ich komme zum Familiennachzug", profileIntegration: "Migration / Integration", profileParent: "Ich bin Elternteil eines Studierenden",
     before: "Ich bin noch nicht in Deutschland", arrivedOpt: "Ich bin neu angekommen", settled: "Ich bin schon eine Weile hier", ready: "Bereit", searching: "Ich suche", temporary: "Vorübergehend", noNotes: "Du hast noch keine Notiz hinzugefügt.",
@@ -3912,7 +3960,7 @@ const ui = {
     noMyTasks: "You have not added tasks to your list yet.", noSuggestions: "No suggestions in this stage.", categories: "Categories",
     official: "Official tasks", homeLife: "Housing & Daily Life", workMoney: "Work & Money", health: "Health", familyEdu: "Family & Education", rightsSupport: "Rights & Support", germanHelp: "German Help",
     profile: "Purpose", detail: "Profession or education path", hasChildren: "Are children coming with you?", children: "Number of children", city: "City", arrived: "Already in Germany?", arrival: "Arrival date", german: "German level", housing: "Housing", language: "Language",
-    start: "Start", onboardingTitle: "Let’s simplify your first period in Germany.", onboardingText: "Choose only the basics first. You can change the rest later.",
+    start: "Start", chooseProfile: "Choose your purpose", chooseDetail: "Choose your field", onboardingTitle: "Let’s simplify your first period in Germany.", onboardingText: "Choose your purpose and field. You can add the remaining details later in Settings.",
     search: "Search", popularSearches: "Popular searches", noResults: "No results.", steps: "Steps", documentsList: "Prepare each document separately", phrases: "German phrases", source: "Verified source", openOfficial: "Open official page",
     cityAdded: "Sources from the selected city are added automatically.", profileStudent: "I’m coming for university", profileWorker: "I’m coming for work", profileAusbildung: "I’m coming for vocational training", profileRecognition: "Job search / recognition", profileFamily: "I’m coming for family reunification", profileIntegration: "Migration / integration support", profileParent: "I am a student's parent",
     before: "I have not arrived yet", arrivedOpt: "I just arrived", settled: "I’ve been here for a while", ready: "Ready", searching: "Searching", temporary: "Temporary", noNotes: "You have not added a note yet.",
@@ -3970,6 +4018,7 @@ let lastQuery = "";
 let lastResults = [];
 let detailReturn = "guide";
 let activeDetailId = "";
+let deferredInstallPrompt = null;
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -3980,6 +4029,8 @@ const text = (selector, value) => { const node = $(selector); if (node) node.tex
 function init() {
   fillSelects();
   bindEvents();
+  setupInstallExperience();
+
   render();
   go("home");
 }
@@ -4100,8 +4151,11 @@ function handleAction(action, button) {
 
 function completeOnboarding(event) {
   if (event) event.preventDefault();
+  const form = $("#onboardingForm");
+  if (!form.reportValidity()) return;
   state.profile = $("#profileInput").value;
   state.profileDetail = $("#detailInput").value;
+  state.profileConfirmed = true;
   state.hasChildren = $("#hasChildrenInput").value === "yes";
   state.childrenCount = state.hasChildren ? Number($("#childrenInput").value || 1) : 0;
   state.city = $("#cityInput").value;
@@ -4114,8 +4168,13 @@ function completeOnboarding(event) {
 
 function saveProfile(event) {
   event.preventDefault();
-  state.profile = $("#editProfileInput").value;
-  state.profileDetail = $("#editDetailInput").value;
+  const previousProfile = state.profile;
+  const previousDetail = state.profileDetail;
+  const nextProfile = $("#editProfileInput").value;
+  const nextDetail = $("#editDetailInput").value;
+  state.profile = nextProfile;
+  state.profileDetail = nextDetail;
+  state.profileConfirmed = true;
   state.hasChildren = $("#editHasChildrenInput").value === "yes";
   state.childrenCount = state.hasChildren ? Number($("#editChildrenInput").value || 1) : 0;
   state.city = $("#editCityInput").value;
@@ -4124,9 +4183,23 @@ function saveProfile(event) {
   state.german = $("#editGermanInput").value;
   state.housing = $("#editHousingInput").value;
   state.onboarded = true;
+  if (previousProfile !== nextProfile || previousDetail !== nextDetail) resetRouteContext();
   persist();
   closeProfile();
   render();
+}
+
+function resetRouteContext() {
+  state.currentTask = "";
+  state.lastOpenedTask = "";
+  state.lastViewedId = "";
+  state.lastViewedTitle = "";
+  state.pendingConfirmation = null;
+  if (state.journeyState && typeof state.journeyState === "object") {
+    state.journeyState.lastOpenedTask = "";
+    state.journeyState.nextRecommendedTask = "";
+    state.journeyState.userProfile = state.profile;
+  }
 }
 
 function addNote(event) {
@@ -4141,7 +4214,7 @@ function addNote(event) {
 }
 
 function fillSelects() {
-  fill("#profileInput", profiles);
+  fill("#profileInput", [["", "chooseProfile"], ...profiles]);
   fill("#editProfileInput", profiles);
   fill("#arrivalStatusInput", arrivalOptions);
   fill("#editArrivalStatusInput", arrivalOptions);
@@ -4158,18 +4231,24 @@ function fillSelects() {
 function fillDetailSelects(mode) {
   const profileSelector = mode === "onboarding" ? "#profileInput" : "#editProfileInput";
   const detailSelector = mode === "onboarding" ? "#detailInput" : "#editDetailInput";
-  const profile = $(profileSelector)?.value || state.profile || "student";
+  const profile = mode === "onboarding"
+    ? ($(profileSelector)?.value || "")
+    : ($(profileSelector)?.value || state.profile || "student");
+  if (!profile) {
+    html(detailSelector, `<option value="">${escapeHtml(L("chooseDetail"))}</option>`);
+    return;
+  }
   const options = detailOptions[profile] || detailOptions.student;
   const current = mode === "onboarding" ? state.profileDetail : state.profileDetail;
-  html(detailSelector, options.map(([value, label]) => `<option value="${escapeAttr(value)}">${escapeHtml(localize(label, state.lang))}</option>`).join(""));
+  const optionMarkup = options.map(([value, label]) => `<option value="${escapeAttr(value)}">${escapeHtml(localize(label, state.lang))}</option>`).join("");
+  html(detailSelector, mode === "onboarding" ? `<option value="">${escapeHtml(L("chooseDetail"))}</option>${optionMarkup}` : optionMarkup);
   const select = $(detailSelector);
-  if (select) select.value = options.some(([value]) => value === current) ? current : options[0][0];
+  if (select) select.value = mode === "onboarding" ? "" : (options.some(([value]) => value === current) ? current : options[0][0]);
 }
 
 function updateConditionalFields() {
-  const onboardingProfile = $("#profileInput")?.value || "student";
   const editProfile = $("#editProfileInput")?.value || state.profile || "student";
-  $("#onboardingDetailField").hidden = (detailOptions[onboardingProfile] || []).length <= 1;
+  $("#onboardingDetailField").hidden = !$("#profileInput")?.value;
   $("#profileDetailField").hidden = (detailOptions[editProfile] || []).length <= 1;
   $("#onboardingChildrenField").hidden = $("#hasChildrenInput")?.value !== "yes";
   $("#profileChildrenField").hidden = $("#editHasChildrenInput")?.value !== "yes";
@@ -4181,7 +4260,7 @@ function fill(selector, options) {
 
 function setFormValues() {
   const values = {
-    profileInput: state.profile || "student",
+    profileInput: state.profileConfirmed ? (state.profile || "") : "",
     editProfileInput: state.profile || "student",
     hasChildrenInput: state.hasChildren ? "yes" : "no",
     editHasChildrenInput: state.hasChildren ? "yes" : "no",
@@ -4210,9 +4289,10 @@ function render() {
   renderStaticLabels();
   setFormValues();
   $$(".lang [data-lang]").forEach((button) => button.classList.toggle("active", button.dataset.lang === state.lang));
-  $("#onboarding").hidden = Boolean(state.onboarded);
-  $$("main > .view").forEach((view) => view.classList.toggle("blocked", !state.onboarded));
-  $(".bottom-nav").classList.toggle("blocked", !state.onboarded);
+  const ready = Boolean(state.onboarded && state.profileConfirmed);
+  $("#onboarding").hidden = ready;
+  $$("main > .view").forEach((view) => view.classList.toggle("blocked", !ready));
+  $(".bottom-nav").classList.toggle("blocked", !ready);
   text("#headerSubtitle", `${state.city || "Deggendorf"} · ${profileLabel(state.profile || "student")}`);
   ensurePersonalTasks(taskItems());
   renderHome();
@@ -4227,9 +4307,12 @@ function renderStaticLabels() {
   text(".profile-button", L("settings"));
   text(".onboarding-card h1", L("onboardingTitle"));
   text(".onboarding-card p", L("onboardingText"));
-  const onboardingLabels = ["profile", "detail", "hasChildren", "children", "city", "arrived", "language"];
-  $$("#onboardingForm label span").forEach((node, index) => { node.textContent = L(onboardingLabels[index] || "guide"); });
-  text("#onboardingNext", L("start"));
+  text("#onboardingProfileLabel", L("profile"));
+  text("#onboardingDetailLabel", L("detail"));
+  text("#onboardingCityLabel", L("city"));
+  text("#onboardingLanguageLabel", L("language"));
+  text("#onboardingNext", state.lang === "de" ? "Plan öffnen" : state.lang === "en" ? "Open my plan" : "Planımı aç");
+  text("#installAppButton", state.lang === "de" ? "Installieren" : state.lang === "en" ? "Install" : "Kur");
   text("#profileSheetTitle", L("settings"));
   text('[data-action="close-profile"]', L("close"));
   const profileLabels = ["profile", "detail", "hasChildren", "children", "city", "arrived", "arrival", "german", "housing"];
@@ -4689,6 +4772,43 @@ function persist() {
   saveState(state);
 }
 
+function setupInstallExperience() {
+  const button = $("#installAppButton");
+  const standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+  button.hidden = standalone;
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+    button.hidden = false;
+  });
+
+  window.addEventListener("appinstalled", () => {
+    deferredInstallPrompt = null;
+    button.hidden = true;
+  });
+
+  button.addEventListener("click", async () => {
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt = null;
+      return;
+    }
+    const message = state.lang === "de"
+      ? "iPhone/iPad: Teilen und dann Zum Home-Bildschirm. Android: Browser-Menü und App installieren."
+      : state.lang === "en"
+        ? "iPhone/iPad: tap Share, then Add to Home Screen. Android: open the browser menu, then Install app."
+        : "iPhone/iPad: Paylaş ve ardından Ana Ekrana Ekle. Android: tarayıcı menüsünden Uygulamayı yükle.";
+    window.alert(message);
+  });
+}
+
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator) || !/^https?:$/.test(location.protocol)) return;
+  navigator.serviceWorker.register("./sw.js").catch((error) => console.warn("Service worker kaydedilemedi", error));
+}
+
 function dedupe(items) {
   const seen = new Set();
   return items.filter((item) => {
@@ -4754,6 +4874,6 @@ try {
   document.body.insertAdjacentHTML("afterbegin", `<div class="empty-line">Uygulama açılırken hata oluştu.</div>`);
 }
 
-  </script>
+</script>
 </body>
 </html>
